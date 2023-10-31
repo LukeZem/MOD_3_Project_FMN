@@ -8,7 +8,7 @@ const PrimaryProvider = ({ children }) => {
     // state
     const [camps, setCamps] = useState([]);
     const [states, setStates] = useState([]);
-
+    const [campToEdit, setCampToEdit] = useState(null);
 
     // return provider div
     return (
@@ -17,8 +17,12 @@ const PrimaryProvider = ({ children }) => {
                 {
                     camps,
                     setCamps,
+
                     states,
-                    setStates
+                    setStates,
+
+                    campToEdit,
+                    setCampToEdit
                 }
             } >
             {children}

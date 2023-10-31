@@ -6,20 +6,36 @@ import CampsDisplay from './pages/CampsDisplay'
 import CampForm from './pages/CampForm'
 import SingleCamp from './pages/SingleCamp'
 import axios from 'axios'
+import { primaryContext } from './context/PrimaryProvider'
 
 
 function App() {
   // go get states data, put in context
-   
+
+  const { setStates, setCamps } = useContext(primaryContext);
 
   useEffect(() => {
+    // getting and setting states array on first render
     try {
       axios({
         method: "GET",
         url: "/server/states"
       }).then((response) => {
         console.log(response.data);
-        // setStates(response.data)
+        setStates(response.data)
+      })
+    } catch (error) {
+      console.error(error)
+    }
+
+    //getting and setting camps array on first render
+    try {
+      axios({
+        method: "GET",
+        url: "/server/camps"
+      }).then((response) => {
+        console.log(response.data);
+        setCamps(response.data)
       })
     } catch (error) {
       console.error(error)
