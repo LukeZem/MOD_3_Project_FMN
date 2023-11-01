@@ -6,23 +6,14 @@ export const primaryContext = createContext();
 const PrimaryProvider = ({ children }) => {
 
     // state
-    const [camps, setCamps] = useState([]);
-    const [states, setStates] = useState([]);
-    const [campToEdit, setCampToEdit] = useState(null);
+
 
     // return provider div
     return (
         <primaryContext.Provider
             value={
                 {
-                    camps,
-                    setCamps,
 
-                    states,
-                    setStates,
-
-                    campToEdit,
-                    setCampToEdit
                 }
             } >
             {children}
