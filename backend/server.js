@@ -6,7 +6,7 @@ const helmet = require('helmet');
 require('./config/db.js');
 const path = require('path');
 const State = require('./models/State.js');
-const Bootcamp = require('./models/Bootcamp.js');
+const Bootcamp = require('./models/Movie.js');
 // REGULAR JS //
 const PORT = 3000;
 const app = express();

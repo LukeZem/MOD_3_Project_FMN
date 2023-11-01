@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose; //ObjectId is a special data type we have to import (allows line 9 to work)
 
-const bootcampSchema = new mongoose.Schema(
+const MovieSchema = new mongoose.Schema(
     {
         name: {type: String, required: true},
         price: {type: Number, required: true},
@@ -13,5 +13,5 @@ const bootcampSchema = new mongoose.Schema(
     })
 
     //  bootcamp points to "bootcamps" collection
-const Bootcamp = mongoose.model('Bootcamp', bootcampSchema)
-module.exports = Bootcamp;
+const Movie = mongoose.model('Movie', MovieSchema)
+module.exports = Movie;

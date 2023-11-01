@@ -5,15 +5,16 @@ export const primaryContext = createContext();
 
 const PrimaryProvider = ({ children }) => {
 
-    // state
-
+    // over arching state... users, threads, token, setToken
+    const [users, setUsers] = useState([]);
 
     // return provider div
     return (
         <primaryContext.Provider
             value={
                 {
-
+                    users,
+                    setUsers
                 }
             } >
             {children}

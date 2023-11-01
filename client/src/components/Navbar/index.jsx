@@ -3,14 +3,14 @@ import './index.css'
 import { Link } from 'react-router-dom'
 const Navbar = () => {
   return (
-    <div>
+    <nav id='navbar'>
       <Link to="/">
         <button>Option 1</button>
       </Link>
       <Link to="/">
         <button>option 2</button>
       </Link>
-    </div>
+    </nav>
   )
 }
 
