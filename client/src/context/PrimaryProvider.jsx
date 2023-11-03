@@ -7,14 +7,15 @@ const PrimaryProvider = ({ children }) => {
 
     // over arching state... users, threads, token, setToken
     const [users, setUsers] = useState([]);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     // return provider div
     return (
         <primaryContext.Provider
             value={
                 {
-                    users,
-                    setUsers
+                    users, setUsers,
+                    isLoggedIn, setIsLoggedIn
                 }
             } >
             {children}

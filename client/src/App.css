@@ -1,11 +1,24 @@
-#root {
+/* #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+} */
+
+#layout {}
+
+/* Make sure the Navbar sticks to the top and has a z-index higher than the content */
+.fixed-top {
+  z-index: 1020;
 }
 
-#layout {
-  display: grid;
-  
+/* Make sure the first column takes full height minus the navbar height if the navbar is not part of the container */
+.vh-100 {
+  height: calc(100vh - 82px) !important;
+  /* Replace var(--bs-navbar-height) with the actual height of your navbar */
+}
+
+/* Remove scrollbar if not needed */
+.overflow-auto {
+  overflow-y: auto;
 }
