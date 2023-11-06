@@ -18,9 +18,11 @@ function App() {
 
 
   const { movie, setMovie, searchTerm } = useContext(movieContext);
-  const { user, setUser } = useContext(primaryContext);
+  const { user, setUser, isLoggedIn, setIsLoggedIn } = useContext(primaryContext);
 
-
+  // if (!isLoggedIn) {
+  //   return <Login_SignUp />;
+  // }
 
 
   return (
@@ -32,13 +34,11 @@ function App() {
           <Col md={6} className="vh-100 overflow-auto">
             <Routes>
               <Route path='/' element={<MovieReviews />} />
-              <Route path='/login' element={<Login_SignUp />} />
               <Route path='/review' element={<CreateMovieReview />} />
               <Route path='/account' element={<AccountSettings />} />
               {/* Add other routes as needed */}
             </Routes>
           </Col>
-
           {/* Right column for FindMovies/displayMoves, also taking up half the viewport height */}
           <Col md={6} className="vh-100 overflow-auto">
             <FindMovies />

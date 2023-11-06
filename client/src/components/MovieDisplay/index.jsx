@@ -1,20 +1,26 @@
 import { useContext } from "react";
 import { movieContext } from "../../context/MovieContext";
+import { Button, Card } from "react-bootstrap";
 
-export default function MovieDisplay({ movie }) {
+export default function MovieDisplay({ movies }) {
   //function to return loaded JSX
 
-  const { } = useContext(movieContext);
-  console.log("checking movie display", movie);
+  console.log("checking movie display", movies);
 
 
   const loaded = () => {
     return (
       <>
-        <h1>Title: {movie.Title}</h1>
-        <h2>Genre: {movie.Genre}</h2>
-        <img src={movie.Poster} alt={movie.Title} />
-        <h2>Release Date: {movie.Year}</h2>
+        {movies.map((movie, index) => ( // Ensure the use of arrow function and brackets here
+          <Card key={movie.imdbID} style={{ width: '18rem' }}>
+            <Card.Img variant="top" src={movie.Poster} />
+            <Card.Body>
+              <Card.Title>{movie.Title}</Card.Title>
+              <Card.Text>{movie.Year}</Card.Text>
+              <Button variant="primary">Go somewhere</Button>
+            </Card.Body>
+          </Card>
+        ))}
       </>
     );
   };
@@ -25,5 +31,5 @@ export default function MovieDisplay({ movie }) {
   };
 
   //Ternary operator will determine which functions JSX we will return
-  return movie ? loaded() : loading();
+  return !movies.length == 0 ? loaded() : loading();
 }

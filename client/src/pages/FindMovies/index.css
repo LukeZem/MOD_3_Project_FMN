@@ -1,0 +1,7 @@
+.movie-card-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2rem;
+    margin-bottom: 10rem;
+    /* Adds space between cards */
+}

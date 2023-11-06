@@ -32,7 +32,7 @@ const NavBar = () => {
             navbarScroll
           >
             <Nav.Link as={Link} to="/">Home</Nav.Link>
-            {!isLoggedIn ? <Nav.Link as={Link} to="/login">Login</Nav.Link> : <></>}
+            {/* {!isLoggedIn ? <Nav.Link as={Link} to="/login">Login</Nav.Link> : <></>} */}
             <NavDropdown title="Actions" id="navbarScrollingDropdown">
               <NavDropdown.Item as={Link} to="/account" >Account Settings</NavDropdown.Item>
               <NavDropdown.Divider />

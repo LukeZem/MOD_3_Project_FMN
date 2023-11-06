@@ -20,6 +20,7 @@ export const MovieProvider = ({ children }) => {
         reviewText: ''
     });
     const [reviews, setReviews] = useState([]);
+    const [movieChoice, setMovieChoice] = useState(null);
 
 
 
@@ -31,7 +32,8 @@ export const MovieProvider = ({ children }) => {
                     searchTerm, setSearchTerm,
                     movies, setMovies,
                     review, setReview,
-                    reviews, setReviews
+                    reviews, setReviews,
+                    movieChoice, setMovieChoice
                 }
             } >
             {children}
