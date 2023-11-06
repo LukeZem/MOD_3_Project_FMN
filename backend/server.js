@@ -78,7 +78,7 @@ app.post('/addReview', async (req, res) => {
         let movieReview = req.body;
         console.log(movieReview);
         let dbResponse = await Review.create(req.body)
-        res.status(201).send(dbResponse);
+        res.status(200).send(dbResponse);
     } catch (err) {
         res.status(500).send({ error: "error creating review", details: err })
     }
@@ -115,15 +115,15 @@ app.get("/movies:searchTerm", async (req, res) => {
 
 
 // UPDATE ROUTES!!!
-// app.put("/", async (req, res) => {
-//     try {
-//         let dbResponse = await Bootcamp.findByIdAndUpdate(req.params.bootcampId, req.body, { new: true }).populate();
-//         res.status(201).send(dbResponse);
-//         console.log('hitting update route');
-//     } catch (err) {
-//         res.status(400).send("error updating camp")
-//     }
-// });
+app.put("/update/:reviewID", async (req, res) => {
+    try {
+        let dbResponse = await Review.findByIdAndUpdate(req.params.reviewID, req.body, { new: true })
+        res.status(200).send(dbResponse);
+        console.log('hitting update route');
+    } catch (err) {
+        res.status(400).send("error updating review")
+    }
+});
 
 
 

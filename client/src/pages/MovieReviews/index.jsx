@@ -3,10 +3,13 @@ import { Card, Col, Row, Button, Container } from 'react-bootstrap';
 import { movieContext } from '../../context/MovieContext';
 import './index.css';
 import axios from 'axios'
+import UpdateForm from '../../components/UpdateForm';
 
 const MovieReviews = () => {
     const { reviews, setReviews, searchTerm } = useContext(movieContext);
     const [filteredReview, setFilteredReview] = useState([]);
+    const [selectedReview, setSelectedReview] = useState(null);
+    const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
         if (searchTerm && reviews.length > 0) {
@@ -22,18 +25,28 @@ const MovieReviews = () => {
     const handleDelete = async (id) => {
         console.log(id);
         try {
-            let response = await axios ({
+            let response = await axios({
                 method: "DELETE",
-                url:`/server/remove/${id}`
+                url: `/server/remove/${id}`
             });
-            let newReviews = reviews.filter((review) =>{
+            let newReviews = reviews.filter((review) => {
                 return review._id !== id
             });
             setReviews(newReviews);
         } catch (error) {
             console.error(error)
         }
-    }
+    };
+
+    const handleUpdate = (review) => {
+        setSelectedReview(review);
+        setShowModal(true);
+    };
+
+    const handleCloseModal = () => {
+        setShowModal(false);
+        setSelectedReview(null);
+    };
 
 
     return (
@@ -49,7 +62,11 @@ const MovieReviews = () => {
                                         <Card.Title>{review.movieTitle}</Card.Title>
                                         <Card.Text>{review.releaseDate}</Card.Text>
                                         <Card.Text>{review.reviewText}</Card.Text>
-                                        <Button variant="primary">Edit</Button>
+                                        <Button
+                                            variant="primary"
+                                            onClick={() => handleUpdate(review)}>
+                                            Edit
+                                        </Button>
                                         <Button
                                             variant="danger"
                                             className="mt-2"
@@ -67,6 +84,13 @@ const MovieReviews = () => {
                     <p>Please enter a search term to find reviews.</p>
                 )}
             </Container>
+            {selectedReview && (
+                <UpdateForm
+                    show={showModal}
+                    handleClose={handleCloseModal}
+                    review={selectedReview}
+                />
+            )}
         </>
     );
 };

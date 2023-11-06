@@ -2,3 +2,8 @@ body {
   overflow: hidden !important;
   height: 100%;
 }
+
+.col {
+  display: flex;
+  justify-content: center;
+}
