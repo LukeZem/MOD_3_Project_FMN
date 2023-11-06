@@ -8,7 +8,6 @@ import { Container, Row, Col } from 'react-bootstrap'
 import { primaryContext } from './context/PrimaryProvider'
 import MovieReviews from './pages/MovieReviews'
 import FindMovies from './pages/FindMovies'
-import CreateMovieReview from './pages/CreateMovieReview'
 import AccountSettings from './pages/AccountSettings'
 import { movieContext } from './context/MovieContext'
 import Login_SignUp from './pages/Login_SignUp'
@@ -34,7 +33,6 @@ function App() {
           <Col md={6} className="vh-100 overflow-auto">
             <Routes>
               <Route path='/' element={<MovieReviews />} />
-              <Route path='/review' element={<CreateMovieReview />} />
               <Route path='/account' element={<AccountSettings />} />
               {/* Add other routes as needed */}
             </Routes>

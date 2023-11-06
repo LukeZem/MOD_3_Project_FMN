@@ -13,7 +13,7 @@ const NavBar = () => {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    console.log(`Searching for ${searchTerm} "${searchValue}"`);
+    // console.log(`Searching for ${searchTerm} "${searchValue}"`);
     // replace this console.log with search logic here
     setSearchTerm(searchValue);
     setSearchValue('');
@@ -33,13 +33,6 @@ const NavBar = () => {
           >
             <Nav.Link as={Link} to="/">Home</Nav.Link>
             {/* {!isLoggedIn ? <Nav.Link as={Link} to="/login">Login</Nav.Link> : <></>} */}
-            <NavDropdown title="Actions" id="navbarScrollingDropdown">
-              <NavDropdown.Item as={Link} to="/account" >Account Settings</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item as={Link} to="/review">
-                Review a Movie
-              </NavDropdown.Item>
-            </NavDropdown>
           </Nav>
           <Form className="d-flex" onSubmit={handleFormSubmit}>
             <Form.Control

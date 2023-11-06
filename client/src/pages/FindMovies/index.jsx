@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from 'react';
 import MovieDisplay from '../../components/MovieDisplay';
 import { movieContext } from '../../context/MovieContext';
 import { Button, Card, Col, Row } from 'react-bootstrap';
+import ReviewModal from '../../components/ReviewModal';
 import './index.css'
 
 const FindMovies = () => {
@@ -10,6 +11,9 @@ const FindMovies = () => {
     // State to hold movie data
     // const [movie, setMovie] = useState(null);
     const { searchTerm, movies, setMovies } = useContext(movieContext);
+    const [reviewText, setReviewText] = useState('');
+    const [selectedMovie, setSelectedMovie] = useState(null);
+    const [showModal, setShowModal] = useState(false);
 
     // Function to getMovies
     const getMovie = async () => {
@@ -33,14 +37,19 @@ const FindMovies = () => {
     }, [searchTerm]);
 
 
-    const createReview = async (movie) => {
-        // grab movie data and POST to server
-    }
+    // const createReview = async (movie) => {
 
+    // }
 
-    let middleIndex = Math.ceil(movies.length / 2)
-    let moviesOne = movies.slice(0, middleIndex);
-    let moviesTwo = movies.slice(middleIndex, movies.length);
+    const handleReviewClick = (movie) => {
+        setSelectedMovie(movie);
+        setShowModal(true);
+    };
+
+    const handleCloseModal = () => {
+        setShowModal(false);
+        setSelectedMovie(null);
+    };
 
     return (
         <div className='movie-card-container'>
@@ -52,12 +61,19 @@ const FindMovies = () => {
                             <Card.Body className="d-flex flex-column">
                                 <Card.Title>{movie.Title}</Card.Title>
                                 <Card.Text>{movie.Year}</Card.Text>
-                                <Button variant="primary" className="mt-auto" onClick={(movie) => { createReview(movie) }}>Review</Button>
+                                <Button variant="primary" className="mt-auto" onClick={() => handleReviewClick(movie)}>Review</Button>
                             </Card.Body>
                         </Card>
                     </Col>
                 ))}
             </Row>
+            {selectedMovie && (
+                <ReviewModal
+                    show={showModal}
+                    handleClose={handleCloseModal}
+                    movie={selectedMovie}
+                />
+            )}
         </div>
     );
 };

@@ -8,8 +8,10 @@ const jwt = require("jsonwebtoken");
 require('./config/db.js');
 const path = require('path');
 const Movie = require('./models/Movie.js');
-const User = require('./models/User.js')
+const User = require('./models/User.js');
+const Review = require('./models/Review.js');
 const { default: axios } = require('axios');
+const { log } = require('console');
 // REGULAR JS //
 const PORT = 3000;
 const app = express();
@@ -72,16 +74,26 @@ app.post('/login', async (req, res) => {
     })
 });
 
+app.post('/addReview', async (req, res) => {
+    try {
+        let movieReview = req.body;
+        console.log(movieReview);
+        let dbResponse = await Review.create(req.body)
+        res.status(201).send(dbResponse);
+    } catch (err) {
+        res.status(500).send("error creating review", err)
+    }
+})
 
 // READ ROUTES!!!
 
 // get all reviews
-app.get("/", async (req, res) => {
+app.get("/reviews", async (req, res) => {
     try {
-        let dbResponse = await Bootcamp.find().populate('stateId')
+        let dbResponse = await Review.find()
         res.status(201).send(dbResponse)
     } catch (error) {
-        res.status(400).send("error creating new bootcamp")
+        res.status(400).send("error getting reviews")
     }
 });
 
