@@ -3,9 +3,12 @@ const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
 const helmet = require('helmet');
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 require('./config/db.js');
 const path = require('path');
-const Bootcamp = require('./models/Movie.js');
+const Movie = require('./models/Movie.js');
+const User = require('./models/User.js')
 const { default: axios } = require('axios');
 // REGULAR JS //
 const PORT = 3000;
@@ -36,32 +39,43 @@ app.use(express.static(path.join(__dirname, "../client/dist"))); //servering the
 
 
 // CREATE ROUTES!!!
-app.post("/", async (req, res) => {
+app.post("/signup", async (req, res) => {
     try {
-        let dbResponse = await Bootcamp.create(req.body);
-        res.status(201).send(dbResponse)
+        let hashedPassword = await bcrypt.hash(req.body.password, 10);
+        User.create({ ...req.body, password: hashedPassword });
     } catch (error) {
-        res.status(400).send("error creating new bootcamp")
+        res.status(400).send("error in signup", error)
     }
+});
+
+app.post('/login', async (req, res) => {
+    // use model to put user in collection
+    // should get the email and pass in the req.body
+    // 1. get the user with this email
+    let dbUser = await User.findOne({userName: req.body.userName});
+    // compare
+    // 2. compare entered password with pass of this user
+    if (!dbUser) return res.status(400).send("email or password incorrect");
+
+    bcrypt.compare(req.body.password, dbUser.password, (err, isMatch) => { 
+        if (isMatch) {
+            // let the frontend know that the login was successful!
+            // dont want password
+            dbUser.password = "";
+            // now just email and username
+            const token = jwt.sign({dbUser}, process.env.TOKEN_SECRET, { expiresIn: "24h" });
+            res.status(200).send({token, dbUser});
+            // log them in ( on frontend can do certain things, get info related to account, can do BACKEND stuff related to their account, permissions for CRUD functionality related to their account, allow only certain users to do certain things )
+        } else {
+            res.status(400).send("email or password incorrect")
+        }
+    })
 });
 
 
 // READ ROUTES!!!
-app.get("/movies:searchTerm", async (req, res) => {
-    let movieToFind = req.params.searchTerm
-    if (!movieToFind) {
-        console.error("no input recieved");
-        return;
-    }
-    try {
-        const APIresponse = await axios(`http://www.omdbapi.com/?apikey=${API_KEY}&t=${movieToFind}`);
-        console.log("APIResponse", APIresponse.data);
-        res.status(201).send(APIresponse.data)
-    } catch (e) {
-        console.error(e);
-    }
-});
 
+// get all reviews
 app.get("/", async (req, res) => {
     try {
         let dbResponse = await Bootcamp.find().populate('stateId')
@@ -70,6 +84,24 @@ app.get("/", async (req, res) => {
         res.status(400).send("error creating new bootcamp")
     }
 });
+
+// search for movies route
+app.get("/movies:searchTerm", async (req, res) => {
+    let movieToFind = req.params.searchTerm
+    if (!movieToFind) {
+        console.error("no input recieved");
+        return;
+    }
+    try {
+        const APIresponse = await axios(`http://www.omdbapi.com/?apikey=${API_KEY}&s=${movieToFind}`);
+        console.log("APIResponse", APIresponse.data);
+        res.status(201).send(APIresponse.data)
+    } catch (e) {
+        console.error(e);
+    }
+});
+
+
 
 // UPDATE ROUTES!!!
 // app.put("/", async (req, res) => {
