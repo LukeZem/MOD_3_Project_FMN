@@ -19,14 +19,6 @@
 }
 
 /* Remove scrollbar if not needed */
-.overflow-auto {
+/* .overflow-auto {
   overflow-y: auto;
-}
-
-.border-start {
-  border-left: 5px solid black
-}
-
-.border-end {
-  border-right: 5px solid black;
-}
+} */

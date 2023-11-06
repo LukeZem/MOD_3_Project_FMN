@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react'
 import './App.css'
 import { Route, Routes } from 'react-router-dom'
-import Navbar from './components/NavBar'
+import NavBar from './components/NavBar'
 import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col } from 'react-bootstrap'
@@ -26,20 +26,15 @@ function App() {
 
   return (
     <>
-      <Navbar className="sticky-top" />
-      <Container fluid className="px-0">
-        <Row className="gx-0">
-          {/* Left column for Routes, taking up half the viewport height */}
-          <Col md={6} className="vh-100 overflow-auto">
+      <NavBar className="sticky-top" />
+      <Container fluid>
+        <Row>
+          <Col md={12} className="vh-100 overflow-auto">
             <Routes>
               <Route path='/' element={<MovieReviews />} />
-              <Route path='/account' element={<AccountSettings />} />
+              <Route path='/movies' element={<FindMovies />} />
               {/* Add other routes as needed */}
             </Routes>
-          </Col>
-          {/* Right column for FindMovies/displayMoves, also taking up half the viewport height */}
-          <Col md={6} className="vh-100 overflow-auto">
-            <FindMovies />
           </Col>
         </Row>
       </Container>

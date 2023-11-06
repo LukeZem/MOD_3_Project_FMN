@@ -1,43 +1,74 @@
-import axios from 'axios';
-import React, { useContext, useEffect, useState } from 'react'
-import { Card, Col, Row } from 'react-bootstrap';
+import React, { useContext, useEffect, useState } from 'react';
+import { Card, Col, Row, Button, Container } from 'react-bootstrap';
 import { movieContext } from '../../context/MovieContext';
+import './index.css';
+import axios from 'axios'
 
 const MovieReviews = () => {
+    const { reviews, setReviews, searchTerm } = useContext(movieContext);
+    const [filteredReview, setFilteredReview] = useState([]);
 
-    const { reviews } = useContext(movieContext);
-    console.log("checking reviews:", reviews);
+    useEffect(() => {
+        if (searchTerm && reviews.length > 0) {
+            const searchResults = reviews.filter((review) =>
+                review.title?.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+            setFilteredReview(searchResults);
+        } else {
+            setFilteredReview(reviews);
+        }
+    }, [searchTerm, reviews]);
 
-    const handleDelete = async () => {
-
-    }
-
-    const handleEdit = async () => {
-
+    const handleDelete = async (id) => {
+        console.log(id);
+        try {
+            let response = await axios ({
+                method: "DELETE",
+                url:`/server/remove/${id}`
+            });
+            let newReviews = reviews.filter((review) =>{
+                return review._id !== id
+            });
+            setReviews(newReviews);
+        } catch (error) {
+            console.error(error)
+        }
     }
 
 
     return (
         <>
-            <div className='review-card-container'>
-                <Row xs={1} md={2} lg={3} className="g-3">
-                    {reviews.map((review) => (
-                        <Col key={review._id}>
-                            <Card className="h-100">
-                                <Card.Img variant="top" src={review.image} />
-                                <Card.Body className="d-flex flex-column">
-                                    <Card.Title>{review.movieTitle}</Card.Title>
-                                    <Card.Text>{review.releaseDate}</Card.Text>
-                                    <Card.Text>{review.reviewText}</Card.Text>
-
-                                </Card.Body>
-                            </Card>
-                        </Col>
-                    ))}
-                </Row>
-            </div>
+            <Container className='review-card-container'>
+                {filteredReview && filteredReview.length > 0 ? (
+                    <Row className="row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
+                        {filteredReview.map((review) => (
+                            <Col key={review._id}>
+                                <Card className="shadow border rounded h-100">
+                                    <Card.Img variant="top" src={review.image} />
+                                    <Card.Body className="d-flex flex-column">
+                                        <Card.Title>{review.movieTitle}</Card.Title>
+                                        <Card.Text>{review.releaseDate}</Card.Text>
+                                        <Card.Text>{review.reviewText}</Card.Text>
+                                        <Button variant="primary">Edit</Button>
+                                        <Button
+                                            variant="danger"
+                                            className="mt-2"
+                                            onClick={() => handleDelete(review._id)}>
+                                            Delete
+                                        </Button>
+                                    </Card.Body>
+                                </Card>
+                            </Col>
+                        ))}
+                    </Row>
+                ) : searchTerm ? (
+                    <p>No reviews found for "{searchTerm}".</p>
+                ) : (
+                    <p>Please enter a search term to find reviews.</p>
+                )}
+            </Container>
         </>
     );
-}
+};
 
 export default MovieReviews;

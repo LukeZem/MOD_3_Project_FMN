@@ -31,13 +31,14 @@ const NavBar = () => {
             style={{ maxHeight: '100px' }}
             navbarScroll
           >
-            <Nav.Link as={Link} to="/">Home</Nav.Link>
+            <Nav.Link as={Link} to="/">Reviews</Nav.Link>
+            <Nav.Link as={Link} to="/movies">Find Movies</Nav.Link>
             {/* {!isLoggedIn ? <Nav.Link as={Link} to="/login">Login</Nav.Link> : <></>} */}
           </Nav>
           <Form className="d-flex" onSubmit={handleFormSubmit}>
             <Form.Control
               type="search"
-              placeholder="Search Movies"
+              placeholder="Search..."
               className="me-2"
               aria-label="Search"
               name='value'

@@ -37,10 +37,6 @@ const FindMovies = () => {
     }, [searchTerm]);
 
 
-    // const createReview = async (movie) => {
-
-    // }
-
     const handleReviewClick = (movie) => {
         setSelectedMovie(movie);
         setShowModal(true);
@@ -52,11 +48,11 @@ const FindMovies = () => {
     };
 
     return (
-        <div className='movie-card-container'>
+        <div className='movie-card-container justify-content-center align-items-center'>
             <Row xs={1} md={2} lg={3} className="g-3">
                 {movies.map((movie) => (
                     <Col key={movie.imdbID}>
-                        <Card className="h-100">
+                        <Card className="h-85 w-75">
                             <Card.Img variant="top" src={movie.Poster} />
                             <Card.Body className="d-flex flex-column">
                                 <Card.Title>{movie.Title}</Card.Title>

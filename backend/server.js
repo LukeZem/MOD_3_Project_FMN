@@ -7,7 +7,6 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require('./config/db.js');
 const path = require('path');
-const Movie = require('./models/Movie.js');
 const User = require('./models/User.js');
 const Review = require('./models/Review.js');
 const { default: axios } = require('axios');
@@ -54,19 +53,19 @@ app.post('/login', async (req, res) => {
     // use model to put user in collection
     // should get the email and pass in the req.body
     // 1. get the user with this email
-    let dbUser = await User.findOne({userName: req.body.userName});
+    let dbUser = await User.findOne({ userName: req.body.userName });
     // compare
     // 2. compare entered password with pass of this user
     if (!dbUser) return res.status(400).send("email or password incorrect");
 
-    bcrypt.compare(req.body.password, dbUser.password, (err, isMatch) => { 
+    bcrypt.compare(req.body.password, dbUser.password, (err, isMatch) => {
         if (isMatch) {
             // let the frontend know that the login was successful!
             // dont want password
             dbUser.password = "";
             // now just email and username
-            const token = jwt.sign({dbUser}, process.env.TOKEN_SECRET, { expiresIn: "24h" });
-            res.status(200).send({token, dbUser});
+            const token = jwt.sign({ dbUser }, process.env.TOKEN_SECRET, { expiresIn: "24h" });
+            res.status(200).send({ token, dbUser });
             // log them in ( on frontend can do certain things, get info related to account, can do BACKEND stuff related to their account, permissions for CRUD functionality related to their account, allow only certain users to do certain things )
         } else {
             res.status(400).send("email or password incorrect")
@@ -81,7 +80,7 @@ app.post('/addReview', async (req, res) => {
         let dbResponse = await Review.create(req.body)
         res.status(201).send(dbResponse);
     } catch (err) {
-        res.status(500).send("error creating review", err)
+        res.status(500).send({ error: "error creating review", details: err })
     }
 })
 
@@ -129,14 +128,12 @@ app.get("/movies:searchTerm", async (req, res) => {
 
 
 // DELETE ROUTES!!!
-app.delete("/", async (req, res) => {
+app.delete("/remove/:reviewID", async (req, res) => {
     try {
-        let dbResponse = await Bootcamp.findByIdAndDelete();
-        res.status(201).send(dbResponse);
-        console.log('hitting delete route');
+        let dbResponse = await Review.findByIdAndDelete(req.params.reviewID);
+        res.status(200).send(dbResponse);
     } catch (err) {
-        console.error(err);  // Log the actual error
-        res.status(401).send("error deleting camp: " + err.message);
+        res.status(500).send({error: "error deleting review", details: err})
     }
 });
 
