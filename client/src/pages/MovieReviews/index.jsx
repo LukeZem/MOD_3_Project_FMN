@@ -41,7 +41,7 @@ const MovieReviews = () => {
                         {reviews.map((review) => (
                             <Col key={review._id}>
                                 <Card className="shadow border rounded h-100">
-                                    <Card.Img variant="top" src={review.image} />
+                                    <Card.Img variant="top" src={review.image} alt='movie-poster' />
                                     <Card.Body className="d-flex flex-column">
                                         <Card.Title>{review.title}</Card.Title>
                                         <Card.Text>{review.releaseDate}</Card.Text>

@@ -53,7 +53,7 @@ const FindMovies = () => {
                 {movies.map((movie) => (
                     <Col key={movie.imdbID}>
                         <Card className="h-85 w-75">
-                            <Card.Img variant="top" src={movie.Poster} />
+                            <Card.Img variant="top" src={movie.Poster} alt='Movie Poster' />
                             <Card.Body className="d-flex flex-column">
                                 <Card.Title>{movie.Title}</Card.Title>
                                 <Card.Text>{movie.Year}</Card.Text>
