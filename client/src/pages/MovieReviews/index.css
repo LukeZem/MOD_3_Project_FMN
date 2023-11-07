@@ -1,0 +1,8 @@
+.review-card-container {
+    display: flex;
+    flex-direction: column;
+    align-content: space-between !important;
+    margin-top: 2rem;
+    margin-bottom: 10rem;
+    box-shadow: 5px;
+}
