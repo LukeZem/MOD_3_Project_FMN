@@ -22,7 +22,7 @@ const NavBar = () => {
   return (
     <Navbar expand="lg" className="bg-body-tertiary" data-bs-theme="dark">
       <Container fluid>
-        <Navbar.Brand href="#"><h1>Movies Critique</h1></Navbar.Brand>
+        <Navbar.Brand href="#"><h1>Family Movie Night!</h1></Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav
