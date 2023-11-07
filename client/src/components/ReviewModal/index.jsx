@@ -25,10 +25,10 @@ const ReviewModal = ({ show, handleClose, movie }) => {
                 url: 'server/addReview',
                 data: review
             })
-            console.log("trying to create review", response);
+            console.log("trying to create review", response.data);
             // Close the modal
             console.log(show);
-            setReviews((prevReviews) => [...prevReviews, response]);
+            setReviews((prevReviews) => [...prevReviews, response.data]);
             handleClose();
 
         } catch (err) {

@@ -9,7 +9,7 @@ const UpdateForm = ({ show, handleClose, review }) => {
 
   const updateReview = async (id) => {
     // Create review object
-    const review = {
+    const updatedReviewData = {
       reviewText: reviewText
     };
 
@@ -18,29 +18,27 @@ const UpdateForm = ({ show, handleClose, review }) => {
     try {
       let response = await axios({
         method: "PUT",
-        url: `server/update/${id}`,
-        data: review
-      })
-      console.log("trying to update review", response);
-      // Close the modal
-      console.log(show);
-      let newReviews = reviews.map((review) => {
-        if (review._id == id) {
-          console.log(response.data);
-          return response.data
-        } else {
-          return review
-        }
+        url: `/server/update/${id}`,
+        data: updatedReviewData
       });
-      setReviews(newReviews)
+      console.log("trying to update review", response.data);
+
+      // Update the reviews array with the updated data
+      let newReviews = reviews.map((item) => {
+        if (item._id === id) {
+          return { ...item, ...response.data }; // assuming response.data is the updated review
+        }
+        return item;
+      });
+
+      setReviews(newReviews);
       handleClose();
     } catch (err) {
       console.log("error UPDATING review", err);
       handleClose();
     }
-
-    // Updating reviews in the context
   };
+
 
   return (
     <Modal show={show} onHide={handleClose}>
@@ -60,7 +58,7 @@ const UpdateForm = ({ show, handleClose, review }) => {
           Close
         </Button>
         <Button variant="primary" onClick={() => updateReview(review._id)}>
-          Updaate Review
+          Update Review
         </Button>
       </Modal.Footer>
     </Modal>

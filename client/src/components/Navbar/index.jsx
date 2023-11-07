@@ -16,7 +16,6 @@ const NavBar = () => {
     // console.log(`Searching for ${searchTerm} "${searchValue}"`);
     // replace this console.log with search logic here
     setSearchTerm(searchValue);
-    setSearchValue('');
   };
 
 
