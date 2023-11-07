@@ -1,8 +1,7 @@
 import { useContext, useEffect, useState } from 'react'
 import './App.css'
 import { Route, Routes } from 'react-router-dom'
-import NavBar from './components/NavBar'
-import axios from 'axios'
+import NavBar from './components/Navbar'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col } from 'react-bootstrap'
 import { primaryContext } from './context/PrimaryProvider'
