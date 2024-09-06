@@ -7,25 +7,34 @@ They can write a review of the movie which in this case would serve as a justifi
 ## Technologies Used
 
 - **Frontend**: React.js, Bootstrap
-- **Backend**: Node.js, Express.js
-- **Database**: MongoDB
+- **Backend**: Node.js, Express.js, JWT (token auth), Bcrypt (password hashing), CORS (cross-origin resource sharing), Helmet (basic security)
+- **Database**: MongoDB (NoSQL)
 - **APIs**: Movie database OMDB
-- **Deployment**: Render
 
 ## Getting Started
-To get a local copy up and running follow these simple steps.
-1. git clone https://github.com/LukeZem/MOD3_Project.git
-2. npm install
-3. In a .env file enter your API as such: API_KEY = 'ENTER YOUR API'
+To get a local copy up and running, follow these simple steps by opening a CLI of your choosing in your desired folder and run these git commands.
+
+1. `git clone https://github.com/LukeZem/MOD_3_Project_FMN.git`  
+   // Creating a local copy of the repo
+2. `cd MOD_3_Project_FMN`  
+   // Moving into the new project folder
+3. `git remote remove origin`  
+   // Removes the link to the original repo
+4. `git remote add origin https://github.com/YourUserName/YourRepo.git`  
+   // Links the local copy to your repo
+5. `git push -u origin main`  
+   // Pushes the code to your repo and sets it as the default upstream
+6. `npm install`  
+   // Installs the project dependencies
+7. In a `.env` file, enter your API key as follows:
+// Make sure to add your `.env` file and any other secret files to your `.gitignore` file
 
 ## Unsolved Problems
-Currently the images provided by the API are only rendering in the dev environment
+Currently, the images provided by the API are only rendering in the development environment.
 
-## Future Enhancements
-1. Ability to login/signup
+## Works in Progress
+1. Login/signup
 2. Create user groups that only the users of those groups can access the reviews
 3. Ability to upvote or downvote a movie choice by users within the group
-
-## Link
-https://family-movie-night.onrender.com/
+4. Group chatrooms
 
